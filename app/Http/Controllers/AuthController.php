@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 use App\Models\User;
 use Validator;
 
@@ -111,7 +112,7 @@ class AuthController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
-            'email' => 'required|string|email|max:100|unique:users',
+            'email' => 'required|string|email|max:100|'.Rule::unique('users')->ignore($user->id),
             'password' => 'required|string|confirmed|min:6',
         ]);
 
@@ -127,9 +128,9 @@ class AuthController extends Controller
         $user->save();
 
 
-        
+
         return response()->json([
-            'message' => 'User successfully registered',
+            'message' => 'User successfully Updated!',
             'user' => $user
         ], 201);
     }

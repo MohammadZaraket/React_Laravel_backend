@@ -21,4 +21,5 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);   
     Route::get('/greeting', [AuthController::class, 'greet']);     
+    Route::post('/updateProfile', [AuthController::class, 'updateProfile']);     
 });
