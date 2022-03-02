@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\contactUs;
 use Illuminate\Http\Request;
 
+use Validator;
+
 class ContactUsController extends Controller
 {
     /**
@@ -35,7 +37,24 @@ class ContactUsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|between:2,100',
+            'email' => 'required|string|email|max:100|',
+            'subject' => 'required|string|max:100|',
+            'message' => 'required|string|',
+
+            
+        ]);
+        if($validator->fails()){
+            return response()->json($validator->errors()->toJson(), 400);
+        }
+        $contactUs = contactUs::create(array_merge(
+                    $validator->validated(),
+                ));
+                return response()->json([
+                    'message' => 'Message successfully Sent'
+            
+                ], 201);
     }
 
     /**

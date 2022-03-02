@@ -2,6 +2,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ContactUsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,5 +22,7 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);   
     Route::get('/greeting', [AuthController::class, 'greet']);     
-    Route::post('/updateProfile', [AuthController::class, 'updateProfile']);     
+    Route::post('/updateProfile', [AuthController::class, 'updateProfile']);   
+    
+    Route::post('/store', [ContactUsController::class, 'store']);
 });
